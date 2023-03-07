@@ -1,0 +1,8 @@
+#!/bin/bash
+
+num=$(incrementFileNum /home/j03y/.cache/ocr)
+
+file=~/.cache/ocr/$num
+maim -s $file 
+
+tesseract $file - | xclip -sel clip 

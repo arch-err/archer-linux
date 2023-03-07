@@ -1,0 +1,12 @@
+#!/bin/bash
+
+dir=$(ls ~/Projects/Ongoing | dmenu)
+
+echo $dir
+
+if [[ $(ls ~/ | grep $dir) ]]; then
+	rm ~/$dir
+fi
+
+mv ~/Projects/Ongoing/$dir ~/Projects/Finished/$dir
+

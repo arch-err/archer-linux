@@ -1,0 +1,18 @@
+#!/bin/bash
+
+YEAR=$(date +'%Y')
+month=$(date +'%B' | tr '[:upper:]' '[:lower:]')
+DAY=$(date +'%d')
+link="https://darebee.com/images/exercise/$YEAR/$month$DAY.gif"
+filename="$YEAR-$month-$DAY.gif"
+
+cd ~/.cache/dailydare
+
+if ! [[ $(ls | grep $filename ) == $filename ]]
+then
+	wget $link -O $filename 2>/dev/null
+fi
+
+sxiv -ab $filename
+
+

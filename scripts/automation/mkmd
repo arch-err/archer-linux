@@ -1,0 +1,36 @@
+#!/bin/bash
+#===========>>
+#
+# This is a file for creating a document in markdown, from a template, and using my 'editmd'
+# script to edit it while having a live preview side by side 
+#
+#===========>>
+
+file=$1
+
+
+# Error handling
+if [[ $(ls | grep $1.md) == "$1.md" ]]
+then
+	echo "Error: File already exists..."
+	exit 2
+fi
+if [[ $file == "" ]]; then
+	echo "Error: No Filename..."
+	exit 2
+fi
+if ! [[ $(echo $file | grep .md) ]]; then
+	file=$file.md
+fi
+
+pdf=$(echo $file | cut -d '.' -f 1).pdf
+
+
+# Create the file from a template
+cat ~/.local/share/templates/markdown > $file
+
+
+pandoc $file -o $pdf # Intiial compile
+
+editmd $file
+

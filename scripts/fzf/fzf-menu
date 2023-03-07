@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "" > /tmp/tmpfzf
+
+while read line
+do
+  echo $line >> /tmp/tmpfzf
+done < "${1:-/dev/stdin}"
+
+W=1200
+H=300
+scr_W=1920
+scr_H=1080
+id=$(cat ~/.local/share/fzf-menu-id)
+echo $((id+1)) > ~/.local/share/fzf-menu-id
+
+# Spawn window and get node id
+alacritty -t "fzf-menu-$id" --hold -e fzf-cmd & disown
+sleep 0.5
+nid=$(echo $(xwininfo -tree -root | grep "fzf-menu-$id" | head -n 1) | cut -d ' ' -f 1)
+bspc node $nid -t floating
+
+
+# Move to top mid
+xdo activate $nid
+xdo move -x $(((scr_W/2)-(W/2))) -y 0
+
+
+# Set correct width and height
+size=$(echo $(xwininfo -tree -root | grep "fzf-menu-$id" | head -n 1) | cut -d ' ' -f 5)
+win_W=$(echo $size | sed 's/x.*//')
+win_H=$(echo $size | sed 's/.*x//; s/\+.*//')
+
+bspc node $nid -z right $(($W-$win_W)) 0
+bspc node $nid -z bottom 0 $(($H-$win_H))
+
+# Focus window when done
+xdo activate $nid
+
+while [[ $(cat /tmp/fzfres) == "" ]]
+do
+	sleep 0.5
+done
+
+cat /tmp/fzfres

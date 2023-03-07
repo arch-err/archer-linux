@@ -1,0 +1,37 @@
+#!/bin/python
+
+import sys
+import os
+from tkinter import *
+import subprocess
+
+sys.argv = sys.argv[1:] 
+CWD = os.getcwd()
+
+# Get colors from .Xresources
+with open("/home/j03y/.Xresources") as f:
+	for line in f.readlines():
+		if "*.foreground" in line:
+			FG = line[line.index("#"):][:-1]
+		elif "*.background" in line:
+			BG = line[line.index("#"):][:-1]
+
+directory = str(subprocess.check_output(["file", sys.argv[0]]))
+directory = directory[directory.index(":")+2:-3]
+
+if directory == "directory":
+	print("Coolio")
+else:
+	print("Error: Target is not a directory")
+	exit()
+
+
+# root = Tk()
+
+# root.config(bg=BG)
+
+# Label(root, bg=BG, fg=FG, text="Coolio!").pack()
+
+# root.mainloop()
+
+

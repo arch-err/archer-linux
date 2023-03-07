@@ -1,0 +1,8 @@
+#!/bin/bash
+
+col=$(xclip -o primary)
+
+
+magick -size 30x30 xc:#00000000 -fill "$col" -draw "circle 15,15 20,5" /tmp/col.png
+
+notify-send.py "This is the color you picked!" $col --hint string:image-path:file///tmp/col.png

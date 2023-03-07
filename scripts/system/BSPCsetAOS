@@ -1,0 +1,13 @@
+#!/bin/bash
+
+f=~/.config/system/bspwm-AOS
+
+id=$(xwininfo | grep "Window id" | cut -d ' ' -f 4 & sleep 0.01 && xdotool click 1)
+
+
+if [[ $(grep $id ~/.config/system/bspwm-AOS) == "" ]]
+then
+	echo $id >> ~/.config/system/bspwm-AOS
+else
+	cat $f | perl -pe "s/$id//" > $f
+fi

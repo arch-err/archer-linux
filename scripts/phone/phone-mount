@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pgrep sshfs > /dev/null || sshfs root@$(nothing-ip):storage -o follow_symlinks -p 8022 ~/Phone

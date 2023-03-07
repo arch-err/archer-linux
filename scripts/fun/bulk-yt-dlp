@@ -1,0 +1,15 @@
+#!/bin/python
+
+import subprocess
+
+with open("/home/j03y/Livestreams/Livestream_Links", "r") as f:
+	links = f.readlines()
+
+links = [i[:-1] for i in links]
+
+start = 21
+stop = 38
+
+for i in range(stop-start+1):
+	subprocess.call(["yt-dlp", "--cookies-from-browser", "firefox", "-x", "--audio-format", "mp3", links[start+i-1]])
+	#print(str(links[start+i-1]))

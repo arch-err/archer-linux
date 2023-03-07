@@ -1,0 +1,4 @@
+#!/bin/bash
+
+python ~/Projects/Finished/Applications/WA/main.py
+

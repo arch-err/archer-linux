@@ -1,0 +1,22 @@
+#!/bin/bash
+
+file=$1
+
+if ! [[ $1 ]]; then
+	echo "Error: No file targeted"
+fi
+
+if [[ $(cat $file) == 1  ]]; then 
+	echo 0
+	echo 0 > $file
+	exit 0
+fi
+
+if [[ $(cat $file) == 0 ]]; then
+	echo 1
+	echo 1 > $file
+	exit 0
+fi 
+
+echo "Error: File does not contain 1 or 0"
+exit 0 

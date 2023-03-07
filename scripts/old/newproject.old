@@ -1,0 +1,33 @@
+#!/bin/python
+
+import sys
+import subprocess
+
+sys.argv = sys.argv[1:]
+args = sys.argv = [i.lower() for i in sys.argv]
+
+path = None
+
+for i in args:
+	if "--name=" in i:
+		subprocess.call(["mkdir", path:="/home/j03y/Projects/Ongoing/"+i.replace("--name=", "").replace(" ", "_")])
+			
+	break
+
+if not path:
+	i = input("Project Name: ")
+	subprocess.call(["mkdir", path:="/home/j03y/Projects/Ongoing/"+i.replace("--name=", "").replace(" ", "_")])
+
+name = path+"/"+path.replace("/home/j03y/Projects/Ongoing/", "")
+
+if "md" in args or "markdown" in args:
+	subprocess.call(["mkmd", name])
+
+if "web" in args or "html" in args or "website" in args:
+	subprocess.call(["mkhtml", name])
+
+if "notes" in args or "n" in args:
+    subprocess.call(["touch", path+"/notes"])
+# print(sys.argv)
+
+subprocess.call(["ln", "-s", path, path.replace("/Projects/Ongoing/", "/")])

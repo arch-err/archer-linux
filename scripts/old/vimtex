@@ -1,0 +1,13 @@
+#!/bin/bash
+
+file=$1
+
+len=$(echo $1 | wc -c)
+
+file_pdf="$(echo $file | cut -c -$(expr $len - 5)).pdf"
+echo $file_pdf
+
+$(alacritty --hold -e vim $file) &
+sleep 1s
+ls $file | entr pdflatex $file $file_pdf & zathura $file_pdf
+

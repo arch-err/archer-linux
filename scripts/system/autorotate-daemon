@@ -1,0 +1,64 @@
+#!/bin/sh
+
+# inspired by
+# https://gist.github.com/Migacz85/3f544933ce5add438555ba7cd33f0413
+
+PROP="Coordinate Transformation Matrix"
+
+transform () {
+    for device in "SYNA329A:00 06CB:CD4F Touchpad" \
+                      	"ELAN2514:00 04F3:2808" \
+			"ELAN2514:00 04F3:2808 Stylus Pen (0)" \
+			"ELAN2514:00 04F3:2808 Stylus Eraser (0)" \
+                      	"pointer:ELAN2514:00 04F3:2808"; do
+    xinput set-prop "$device" --type=float "$PROP" "$@"
+    done
+}
+
+monitor-sensor | while read -r line
+do
+
+blt=0.5
+
+if [[ $(cat ~/.config/system/rotation-lock) == 0 ]]; then
+
+	echo $line
+	if [ "$line" = "Accelerometer orientation changed: left-up" ]; then
+	    xrandr -o left
+	    # blackout $blt & 
+	    transform 0 -1 1 1 0 0 0 0 1
+	    xwallpaper --center ~/.config/system/wallpaper.png
+	    ~/.local/src/eww/target/release/eww reload
+	    # sleep 0.2s
+	    # xdotool key ctrl+alt+r
+	fi
+	if [ "$line" = "Accelerometer orientation changed: right-up" ]; then
+	    xrandr -o right
+	    # blackout $blt & 
+	    transform 0 1 0 -1 0 1 0 0 1
+	    xwallpaper --center ~/.config/system/wallpaper.png
+	    ~/.local/src/eww/target/release/eww reload
+	    # sleep 0.2s
+	    # xdotool key ctrl+alt+r
+	fi
+	if [ "$line" = "Accelerometer orientation changed: bottom-up" ]; then
+	    xrandr -o inverted
+	    # blackout $blt & 
+	    set-wal
+	    ~/.local/src/eww/target/release/eww reload
+	    transform -1 0 1 0 -1 1 0 0 1
+	    # sleep 0.2s
+	    # xdotool key ctrl+alt+r
+	fi
+	if [ "$line" = "Accelerometer orientation changed: normal" ]; then
+	    xrandr -o normal
+	    # blackout $blt & 
+	    set-wal
+	    ~/.local/src/eww/target/release/eww reload
+	    transform 1 0 0 0 1 0 0 0 1
+	    # sleep 0.2s
+	    # xdotool key ctrl+alt+r
+	fi
+fi
+done
+

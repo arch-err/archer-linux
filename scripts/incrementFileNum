@@ -1,0 +1,32 @@
+#!/bin/python
+
+import os
+import sys
+
+args = sys.argv[1:]
+path = ""
+
+for i in args:
+	if "~" in i:
+		i.replace("~", "/home/j03y")
+	if "/home/j03y/" in i:
+		path = i
+		break
+
+if not path:
+	print("Error: no directory")
+	exit()
+		
+
+dir = os.listdir(path)
+dir.sort()
+num = dir[-1].replace(".png", "")
+
+for index, char in enumerate(num):
+	if char != "0": break	
+
+newnum = str(int(num)+1)
+num = "0"*(len(num)-len(newnum))+newnum + ".png"
+
+print(num)
+

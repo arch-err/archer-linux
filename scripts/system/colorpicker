@@ -1,0 +1,24 @@
+#!/bin/bash
+#===========>>
+#
+# This script copies the color under the cursor to the clipboard
+#
+#===========>>
+
+# Get cursor position
+x=$(xdotool getmouselocation | cut -d ":" -f 2 | cut -d " " -f 1)
+y=$(xdotool getmouselocation | cut -d ":" -f 3 | cut -d " " -f 1)
+curpos="1x1+""$x"+"$y"
+
+# Get color from curpos
+col=$(maim -u -g $curpos | convert - -format '#%[hex:p{1,1}]' info:-)
+col=${col:0:(-2)}
+
+# Generate thumbnail image
+magick -size 30x30 xc:#00000000 -fill "$col" -draw "circle 15,15 20,5" /tmp/col.png
+
+
+echo $col | xclip -i sel clip
+
+notify-send.py "Color Picked" $col --hint string:image-path:file:///tmp/col.png
+

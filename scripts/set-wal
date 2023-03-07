@@ -1,0 +1,30 @@
+#!/bin/bash
+#===========>>
+#
+# This is my script for setting wallpaper using the program 'xwallpaper'.
+# This script can be run on a file in my LF config by pressing 'x'
+#
+#===========>>
+
+file=$1
+
+# Just reset the wallpaper if no argument is given
+if ! [[ $1 ]]; then
+	file=~/.config/system/wallpaper.png
+fi
+
+# Minimal error handling
+if ! [[ $(file --mime-type $file) == *"image"* ]]; then
+ echo "Error: File is not an image"
+ exit 0	
+fi
+
+# Actually set the wallpaper
+xwallpaper --focus $file
+
+cp $file ~/.config/system/wallpaper.png 2>/dev/null
+cp $file ~/.config/system/lockscreen.png 2>/dev/null
+
+# Generate PyWal colorscheme
+# wal -c --backend colortheif -i ~/.config/system/wallpaper.png &
+

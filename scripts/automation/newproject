@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [[ $1 == "" ]]
+then
+	echo "Error: No Project Name"
+	exit 0
+fi
+mkdir ~/Projects/Ongoing/"$1"
+cd ~/Projects/Ongoing/"$1"
+TP="/home/j03y/.local/share/templates"
+
+if [[ $2 == "-"* ]]
+then
+	case $2 in
+		-p) touch main.py ;;
+		-w) 
+			cp $TP"/css" style.css
+			cp $TP"/html" index.html
+			;;
+		-md) cp $TP"/markdown" $1".md" && pandoc $1".md" -o $1".pdf" ;;
+		-b) cp $TP"/basic_script" $1 ;;
+	esac
+
+fi
+
+lfub

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+nid=$(cat ~/.config/system/main-scp-id)
+
+if [[ $(toggle-state ~/.config/system/main-scp-shown) == "1" ]]
+then
+	bspc node $nid --flag hidden=off
+	xdo activate $nid
+	exit 0
+fi
+
+bspc node $nid --flag hidden=on
+exit 0
+

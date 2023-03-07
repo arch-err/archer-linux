@@ -1,0 +1,39 @@
+#!/bin/bash
+
+case $1 in 
+   	-v) vim ~/ToDo ;;
+	-c) 
+		cat -n ~/ToDo | grep -v "[x]"
+		echo "Check number:"
+		read input
+		echo "$(echo "cat -n ~/ToDo | sed 's/$input.*\[ /$input  \- \[x/'" | bash \
+		| sed 's/.*\-/-/')" > ~/ToDo
+		cat -n ~/ToDo | grep --color=always $input
+	;;
+	-uc) 
+		cat -n ~/ToDo | grep "[x]"
+		echo "Check number:"
+		read input
+		echo "$(echo "cat -n ~/ToDo | sed 's/$input.*\[x/$input  \- \[ /'" | bash \
+		| sed 's/.*\-/-/')" > ~/ToDo
+		cat -n ~/ToDo | grep --color=always $input
+	;;
+	-n) 
+		echo "- [ ] $2" >> ~/ToDo
+	;;
+	-a)
+		cp ~/ToDo ~/Random/ToDo\ Archive/"$(date +'%Y-%m-%d %H.%M.%S')"
+		rm  ~/ToDo && touch ~/ToDo
+	;;
+	-f)	cat ~/ToDo ;;
+	-h)
+		echo "-v	open ~/ToDo with vim"
+		echo "-c	chech item off list"
+		echo "-uc	uncheck item"
+		echo "-n	add new item"
+		echo "-a	archive current todo list"
+		echo "-f	cat out the full list"
+		echo "-h	show this help"
+	;;
+	*)	grep -vw "[x]" ~/ToDo;;
+esac

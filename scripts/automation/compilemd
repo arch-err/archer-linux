@@ -1,0 +1,17 @@
+#!/bin/bash
+#===========>>
+#
+# A script to compile a markdown file to a pdf
+# The script uses 'entr' to recompile the document whenever the source file is changed.
+#
+#===========>>
+
+doc=$1
+pdf=$2
+
+while true
+do
+	ls $doc | entr -r pandoc $doc -o $pdf
+	sleep 1
+done
+

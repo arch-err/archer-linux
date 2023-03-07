@@ -1,0 +1,4 @@
+#!/bin/bash
+
+vim ~/Random/Improvement/Daily_Plans/$(date --date="tomorrow" +%A_%Y-%m-%d)
+

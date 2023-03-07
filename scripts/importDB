@@ -1,0 +1,10 @@
+#!/bin/bash
+
+imgCount=$(ls Dropbox/Camera\ Uploads/ | wc -l)
+
+if [ $imgCount -eq 1 ]
+then
+	sxiv -b -f ~/Dropbox/Camera\ Uploads/
+fi
+
+mv ~/Dropbox/Camera\ Uploads/* ~/

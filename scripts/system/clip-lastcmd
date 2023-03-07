@@ -1,0 +1,9 @@
+#!/bin/bash
+#===========>>
+#
+# Copy last command to clipboard
+#
+#===========>>
+
+tail -n 2 ~/.histfile | sed -n 1p | cut -d ";" -f 2- | tr -d '\n' | xclip -in -selection "clipboard"
+

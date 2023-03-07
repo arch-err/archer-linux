@@ -1,0 +1,13 @@
+#!/bin/bash
+SSID=34256
+PASSWORD=098654321
+
+nmcli dev wifi connect $SSID password $PASSWORD
+# echo "Error: No network with SSID '34256' found."
+
+# while [[ "$(nmcli dev wifi connect $SSID password $PASSWORD)" == "Error*" ]]
+# do
+	# nmcli dev wifi rescan
+	# nmcli dev wifi connect $SSID password $PASSWORD
+	# sleep 1
+# done

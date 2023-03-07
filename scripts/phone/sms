@@ -1,0 +1,33 @@
+#!/bin/bash
+
+to=$1
+
+if [[ $to == "" ]]; then
+	contact=$(cat -n ~/Random/Information/contacts.json | grep name | sed 's/\".*: \"//; s/\",//' | fzf)
+	lnum=$(echo $contact | cut -d ' ' -f 1)
+	lnum=$(($lnum+1))
+	to=$(sed -n $(echo $lnum)p ~/Random/Information/contacts.json | cut -d '"' -f 4)
+	echo $contact | awk '{print $2 " " $3 " " $4 " " $5 " "}'
+fi
+
+text=$2
+
+if [[ $2 == "file" ]]; then
+	if [[ $3 == "" ]]; then
+		echo "Error: Invalid file name!"
+		exit 0
+	fi
+	
+	text=$(cat $3 | perl -pe 's/\n/\\n/')
+fi
+
+if [[ $text == "" ]]; then
+	echo "Message:"
+	read text
+fi
+
+to=$(echo $to | perl -pe 's/ //g')
+
+echo "Sending..."
+ssh-phone-cmd "termux-sms-send -n $to \"$text\""
+

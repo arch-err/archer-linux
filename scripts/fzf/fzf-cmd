@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "" > /tmp/fzfres
+echo $(cat /tmp/tmpfzf | fzf) > /tmp/fzfres
+
+rm /tmp/tmpfzf
+
+kill -9 $PPID
+
+
+

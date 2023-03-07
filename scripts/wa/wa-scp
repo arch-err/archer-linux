@@ -1,0 +1,29 @@
+#!/bin/bash
+
+W=1200
+H=300
+scr_W=1920
+scr_H=1080
+
+# Spawn window and get node id
+alacritty -t "wa-scp" --hold & disown
+sleep 0.2
+nid=$(echo $(xwininfo -tree -root | grep "wa-scp" | head -n 1) | cut -d ' ' -f 1)
+bspc node $nid -t floating
+
+
+# Move to top mid
+xdo activate $nid
+xdo move -x $(((scr_W/2)-(W/2))) -y 0
+
+
+# Set correct width and height
+size=$(echo $(xwininfo -tree -root | grep "wa-scp" | head -n 1) | cut -d ' ' -f 5)
+win_W=$(echo $size | sed 's/x.*//')
+win_H=$(echo $size | sed 's/.*x//; s/\+.*//')
+
+bspc node $nid -z right $(($W-$win_W)) 0
+bspc node $nid -z bottom 0 $(($H-$win_H))
+
+# Focus window when done
+xdo activate $nid

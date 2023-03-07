@@ -1,0 +1,22 @@
+#!/bin/bash
+BAT=$(acpi -b | grep -v unavail)
+
+P=$(echo $BAT | cut -d ' ' -f 4 | cut -d '%' -f 1)
+
+
+if [[ $P == "1" ]]; then
+	notify-send -u critical "Battery Empty!" "This laptop will shut down now..."
+	exit 0
+fi
+
+if [[ $P == "5" ]]; then
+	notify-send -u critical "Battery Low" "This laptop will shut down very soon, you should plug in a charger."
+	exit 0
+fi
+
+if [[ $P == "100" ]]; then
+	notify-send "Battery Full" "You can unplug the charger now."
+	exit 0
+fi
+
+exit 0

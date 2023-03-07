@@ -1,0 +1,17 @@
+#!/bin/bash
+
+killall scrcpy
+
+scrcpy &
+
+nid=$(echo $(xwininfo -tree -root | grep scrcpy) | cut -d " " -f 1)
+
+sleep 4
+bspc node $nid -t floating
+
+bspc node $nid -f
+
+xdo move -x 1460 -y 50 
+xdotool mousemove 1470 60
+xdotool click 3
+xdotool key "Super_L+o"

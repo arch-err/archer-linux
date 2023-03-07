@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ $1 == "" ]]; then
+	echo "Error: No time supplied."
+	exit 0
+fi
+
+b=$(cat /sys/class/backlight/intel_backlight/brightness)
+
+echo 0 > /sys/class/backlight/intel_backlight/brightness
+
+sleep $1 
+
+echo $b > /sys/class/backlight/intel_backlight/brightness

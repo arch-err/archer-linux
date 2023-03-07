@@ -1,0 +1,17 @@
+#!/bin/bash
+
+lb=~/.config/system/lastbat
+cb=/sys/class/power_supply/BAT0/capacity
+
+while true
+do
+	if [[ $(cat $cb) == 5 ]]
+	then
+		if [[ $(cat $lb) == 4 ]]
+		then
+			notify-send.py -u critical "Battery Low!" "Battery level at 5%\nPlug in the charger\!"
+		fi
+	fi
+	cp $cb $lb
+	sleep 3
+done

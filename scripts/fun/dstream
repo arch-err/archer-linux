@@ -1,0 +1,3 @@
+#!/bin/bash
+
+~/.local/bin/streaming/$(ls ~/.local/bin/streaming/ | rofi -dmenu)

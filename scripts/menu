@@ -1,0 +1,8 @@
+#!/bin/bash
+
+xlunch \
+-f "Hack-Regular-Nerd-Font-Complete/10" \
+-l 10 \
+-s 80 \
+--bc 00000088  \
+-t

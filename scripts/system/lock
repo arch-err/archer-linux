@@ -1,0 +1,48 @@
+#!/bin/bash
+#===========>>
+#
+# This is a script used to get a lockscreen
+# The screen can be locked by pressing 'Super + L'
+#
+# Requirements: Nerd Font, i3lock-color, imagemagick, maim
+# Links: 
+# 	- https://github.com/ryanoasis/nerd-fonts 
+#	- https://github.com/Raymo111/i3lock-color
+#	- https://imagemagick.org/index.php
+# 	- https://github.com/naelstrof/maim
+#
+#===========>>
+
+
+# Generate lockscreen from a screenshot and blur it
+maim -g 1920x1080+0+0 /tmp/lock.png
+convert -scale 10% -blur 0x1 -resize 1000% /tmp/lock.png /tmp/lock.png
+
+# Configure i3lock overlay
+i3lock -i /tmp/lock.png \
+	--radius 75 \
+	--ring-width 3 \
+	--indicator \
+	-k \
+	--time-color=aaaaaa \
+	--time-font="Hack Nerd Font" \
+	--date-font="Hack Nerd Font" \
+	--verif-font="Hack Nerd Font" \
+	--wrong-font="Hack Nerd Font" \
+	--time-size=26 \
+	--date-size=12 \
+	--verif-size=56 \
+	--wrong-size=56 \
+	--date-color=888888 \
+	--ring-color=444444 \
+	--inside-color=00000000 \
+	--keyhl-color=008888 \
+	--insidever-color=00000000 \
+	--insidewrong-color=00000000 \
+	--ringwrong-color=880000 \
+	--ringver-color=008888 \
+	--verif-text="" \
+	--wrong-text="﯇" \
+	--wrong-color=880000 \
+	--verif-color=008888 \  
+

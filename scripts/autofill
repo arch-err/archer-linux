@@ -1,0 +1,4 @@
+#!/bin/bash
+
+grep $(echo $(cat Logins | grep : | cut -d "\"" -f 2 | sed 's/_/ /g' | fzf-menu) | sed 's/ /_/g') Logins | cut -d "\"" -f 4 | xclip -i -sel clip
+

@@ -1,0 +1,14 @@
+#!/bin/python
+
+import random
+from time import sleep
+
+def get_scramble():
+    with open("/home/j03y/.local/share/cubetimer/voltara-scrambles", "r") as f:
+        return random.choice(f.readlines())[:-1]
+
+print(get_scramble())
+
+
+
+

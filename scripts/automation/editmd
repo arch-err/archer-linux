@@ -1,0 +1,38 @@
+#!/bin/bash
+#===========>>
+#
+# A script for editing markdown files.
+# The script opens the md file, opens a preview of it in zathura,
+# and starts a compiler script in the background.
+#
+#
+#===========>>
+
+
+doc=$(pwd)/$1
+if [[ $(echo $1 | grep $(pwd)) ]]; then
+	doc=$1
+fi
+pdf=$(echo $doc | cut -d '.' -f 1).pdf
+
+
+# Minor errot handling
+if [[ $doc != *.md ]]; then
+	echo "$doc" is not a markdown file!
+	exit 0
+fi
+
+# Start the compiler and hide the node (window)
+alacritty -t compiler --hold -e compilemd $doc $pdf & disown
+sleep 0.3
+
+compnode=$(echo $(xwininfo -tree -root | grep compiler) | cut -d ' ' -f 1)
+bspc node $compnode --flag hidden=on
+
+# open the pdf with zathura
+zathura $pdf 2>/dev/null & disown
+
+$EDITOR $doc
+
+# Kill the compiler when I close the file editor
+bspc node $compnode -c

@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+
+whence -pm '*' | sed 's/.*\///' | fzf-menu
+

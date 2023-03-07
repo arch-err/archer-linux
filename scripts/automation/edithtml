@@ -1,0 +1,7 @@
+#!/bin/bash
+
+alacritty --hold -e $EDITOR index.html & disown
+alacritty --hold -e $EDITOR style.css & disown
+
+live-server --browser=qutebrowser
+

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+title=$(playerctl metadata title)
+album=$(playerctl metadata album)
+artist=$(playerctl metadata artist)
+url=$(playerctl metadata mpris:artUrl)
+filename=$(echo "$url" | cut -d '/' -f 5)
+
+wget "$url"
+
+mv ~/$filename ~/.cache/spotifyd/thumbnails/
+
+notify-send "$album" "$artist - $album" -i "~/.cache/spotifyd/thumbnails/$filename"
+
+

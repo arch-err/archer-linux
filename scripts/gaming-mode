@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ $(cat ~/.config/system/gaming-mode) == "0" ]]
+then
+	killall sxhkd
+	sxhkd -c ~/.config/sxhkd/sxhkdrc.gaming &
+	toggle-state ~/.config/system/gaming-mode
+	exit 0
+fi
+
+reload sxhkd
+toggle-state ~/.config/system/gaming-mode
+exit 0
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd $(pwd)
+
+cf=$1
+nf=$(echo $1 | sed "s/ /_/g" | sed "s/[^ _-]*/\u&/g")
+
+mv "$cf" "$nf"   
+
+

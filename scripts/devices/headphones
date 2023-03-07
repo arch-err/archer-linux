@@ -1,0 +1,21 @@
+#!/bin/bash
+#===========>>
+#
+# A script for connecting and disconnecting headphones depending on the connection-state.
+#
+#===========>>
+
+
+# MAC-address for headphones
+MAC="50:C2:ED:E8:FF:D2"
+
+# If already conncted -> disconnect
+if [[ $(bluetoothctl info $MAC | grep "Connected" | cut -d ' ' -f 2) == "yes" ]]; then
+	bluetoothctl disconnect $MAC 
+	exit 0
+fi
+
+bluetoothctl connect $MAC
+
+# Set the bluetooth profile to A2DP
+pactl set-default-sink bluez_sink.$(echo $MAC | sed 's/:/_/g').a2dp_sink

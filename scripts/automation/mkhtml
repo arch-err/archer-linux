@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mkdir $1 &&
+cd $1
+
+cat ~/.config/templates/html > index.html
+cat ~/.config/templates/css > style.css
+
+edithtml

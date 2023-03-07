@@ -1,0 +1,10 @@
+#!/bin/bash
+#===========>>
+#
+# A very short script for getting the current map in the game 'Apex Legends'
+# Specifically the battle royale gamemode
+#
+#===========>>
+
+curl -s https://apexlegendsstatus.com/current-map | grep Battle | head -n 1 | cut -f 4 -d ":" | cut -f 1 -d "<" | cut -c 2-
+

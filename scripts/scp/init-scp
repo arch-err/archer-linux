@@ -1,0 +1,38 @@
+#!/bin/bash
+
+
+W=1200
+H=300
+scr_W=1920
+scr_H=1080
+
+# Kills main-scp 
+xwininfo -tree -root | grep main-scp | awk '{print $1}' | xargs xkill -id 
+
+
+# Spawn window and get node id
+alacritty -t "main-scp" --hold & disown
+sleep 0.5
+nid=$(echo $(xwininfo -tree -root | grep "main-scp" | head -n 1) | cut -d ' ' -f 1)
+bspc node $nid -t floating
+
+
+# Move to top mid
+xdo activate $nid
+xdo move -x $(((scr_W/2)-(W/2))) -y 0
+
+
+# Set correct width and height
+size=$(echo $(xwininfo -tree -root | grep "main-scp" | head -n 1) | cut -d ' ' -f 5)
+win_W=$(echo $size | sed 's/x.*//')
+win_H=$(echo $size | sed 's/.*x//; s/\+.*//')
+
+bspc node $nid -z right $(($W-$win_W)) 0
+bspc node $nid -z bottom 0 $(($H-$win_H))
+
+bspc node $nid --flag hidden=on
+
+echo $nid > ~/.config/system/main-scp-id
+echo 0 > ~/.config/system/main-scp-shown
+
+echo $nid >> ~/.config/system/bspwm-AOS

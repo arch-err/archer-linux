@@ -1,0 +1,15 @@
+#!/bin/bash
+killall polybar
+if pgrep -x polybar; then
+	pgrep -x polybar
+	pkill -x polybar
+	bspc config top_padding 0
+	toggle-state ~/.config/polybar/polybar_shown
+	bspsize
+	exit 0
+fi
+
+launch-bars 2>/dev/null
+toggle-state ~/.config/polybar/polybar_shown
+bspsize
+exit 0

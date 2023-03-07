@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# set wallpaper
+# start music on tag 10
+# 	switch to tag 10, start music, switch back to tag 1
+
+set-wal "~/Media/Visual/Wallpapers/PC/Iron Man/Iron_Man_Workshop.jpg"
+
+# dkcmd win float
+# dkcmd win resize w=100
+devour mpv ~/Media/Audio/Music/Soundtracks/Iron_Man/Tony_Starks_Workshop.mp4 & disown
+sleep 1
+dkcmd ws send 10
+
+

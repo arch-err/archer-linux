@@ -1,0 +1,5 @@
+#!/bin/bash
+
+$BROWSER "https://www.google.com/search?q=archwiki+$1"
+
+kill -9 $PPID

@@ -1,0 +1,24 @@
+#!/bin/bash
+#===========>>
+#
+# A script for changing bluetooth profile on headphones
+# This script toggles between A2DP and hands-free
+# Can easily be expanded for other profiles
+#
+#===========>>
+
+# Get current status
+current=$(pactl info | grep "bluez" | cut -d "." -f 3 | head -n 1)
+
+
+if [[ $current == "handsfree_head_unit" ]]; then
+	pactl set-card-profile bluez_card.50_C2_ED_E8_FF_D2 a2dp_sink
+	exit 0
+fi
+if [[ $current == "a2dp_sink" ]]; then
+	pactl set-card-profile bluez_card.50_C2_ED_E8_FF_D2 handsfree_head_unit
+	exit 0
+fi
+
+
+

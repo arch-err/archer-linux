@@ -1,0 +1,1 @@
+$(echo -e "shutdown now \n reboot\n bspc quit" | fzf-menu)

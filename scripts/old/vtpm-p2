@@ -1,0 +1,16 @@
+#!/bin/bash
+
+vim ~/.cache/msg
+# if [ $(cat ~/.cache/msg) ]
+# then
+# 	
+# 	kill -9 $PPID
+# 	exit 0
+# fi
+# 
+sudo xclip -sel clipboard -i ~/.cache/msg
+
+notify-send "Text copied to clipboard" "The text you edited in vim was copied to the clipboard." 
+
+#kill -9 $PPID
+

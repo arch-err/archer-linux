@@ -1,0 +1,36 @@
+#!/bin/bash
+#===========>>
+#
+# This is the most useful out of all my scripts, it's
+# a script to make new scripts.
+# It basically just creates a file with a shebang, makes it executable, and moves it to .local/bin
+#
+#===========>>
+
+file=$(pwd)/$1
+
+# Error handling
+if ! [[ $1 ]]; then
+	echo Error: No file name
+	exit 0
+fi
+if [[ $(file $file | cut -d ' ' -f 2) == "directory" ]]; then
+	echo Error: Target is a directory
+	exit 0
+fi
+
+# Create an executable file from a template
+cat ~/.local/share/templates/basic_script > $file
+chmod +x $file
+
+# If the --here flag is used it doesnt move the file to .local/bin 
+if ! [[ $2 == "--here" ]]; then
+	mv $file ~/.local/bin/
+	source ~/.config/zsh/.zshenv
+	vim ~/.local/bin/$1
+	exit 0
+fi
+
+sleep 0.1
+vim $file
+

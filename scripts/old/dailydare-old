@@ -1,0 +1,11 @@
+#!/bin/bash
+
+monthDay=$(date +%B%d)
+monthDay=${monthDay,,}
+
+URL="https://www.darebee.com/images/exercise/$(date +%Y)/$monthDay.gif" 
+echo $URL
+wget $URL -O "~/.cache/dailydare/$(date "+%Y-%m-%d %H:%M:%S").gif"
+
+
+

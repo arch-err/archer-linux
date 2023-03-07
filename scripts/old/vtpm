@@ -1,0 +1,10 @@
+#!/bin/bash
+
+alacritty --hold -t "vim-to-clip" -e "vtpm-p2" &
+sleep 0.3
+nid=$(echo $(xwininfo -tree -root | grep "vim-to-clip" | head -n 1) | cut -d ' ' -f 1)
+
+bspc node $nid -t floating
+
+exit 0
+

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+f=~/.config/system/bspwm-AOS
+
+for node in $(cat $f) 
+do
+	bspc node $node --to-desktop $1
+	
+done
+
+bspc desktop -f $1
+
+if ! bspc query -D -d .occupied | grep $(bspc query -D --desktop $1) 1>/dev/null; then
+	$2	
+fi
+
+exit 0

@@ -1,0 +1,34 @@
+#!/bin/bash
+f=$(readlink -f "$1" | sed 's/\\ / /g')
+file --dereference --brief --mime-type "$f"
+case "$(file --dereference --brief --mime-type "$f")" in
+	*/pdf) prg="xournalpp, zathura" ;;
+	image/*) prg="pinta, sxiv" ;;
+	text/html) prg="firefox, qutebrowser, codium, vim" ;;
+	text/*) prg="codium, vim" 
+		if [[ $(splitpath $f -1) == "Phone" ]]
+		then
+			prg="phone-mount"
+		fi
+	;;
+	inode/x-empty) prg="codium, vim" ;;
+	inode/directory) prg="codium, mpv, firefox"
+esac
+
+# counts occurances of , in $prg
+#          |
+#          V
+c=${prg//[^,]}
+c=$(("${#c}"+1))
+
+
+
+if [[ $c == 1 ]]
+then
+	echo $prg
+	$prg "$f"
+	exit 0
+fi
+
+todmenu=$(echo $prg | sed 's/, /\\n/g')
+$(echo -e $todmenu | fzf) "$f"

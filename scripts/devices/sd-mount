@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if ! [[ $(lsblk | grep mmcblk0p1) == "" ]]
+then
+	sudo mount /dev/mmcblk0p1 /mnt/sd
+fi
+
