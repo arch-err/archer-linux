@@ -1,5 +1,5 @@
 # Archer
-Archer is my own configuration of Arch linux. I built this system from the ground up, piecing it together from some of the most minimal yet configurable software I could find.
+Archer is my own configuration of Arch linux. I built this system from the ground up, piecing it together from some minimal yet configurable software I could find.
 
 # My workflow
 
@@ -31,6 +31,7 @@ Here is some of the software that make up my OS:
 - PDF reader: Zathura
 - Media player: mpv, Spotify
 - Chatting: Discord, Signal-desktop
+- Email client: neomutt
 - App launcher: My own fzf-menu script (dmenu/rofi but with fzf)
 
 
